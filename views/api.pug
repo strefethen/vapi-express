@@ -34,6 +34,12 @@ block content
                         td #{t}
                     else
                         for key in Object.keys(t)
+                            // Optionally display links for ID fields to see nested data
+                            // if (key === title)
+                            //     td #{t[key]}
+                            //         a(href=`?path=${path}\/${t[key]}`) 
+                            // else
+                        
                             td #{t[key]}
 
     // Display the raw JSON response
