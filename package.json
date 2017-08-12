@@ -1,0 +1,15 @@
+{
+  "name": "expressapp",
+  "version": "0.1.0",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.13.4",
+    "pug": "^2.0.0-rc.3",
+    "request": "^2.72.0",
+    "body-parser": "^1.15.1",
+    "dotenv": "^2.0.0"
+  },
+  "license": "MIT"
+}

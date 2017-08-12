@@ -1,0 +1,12 @@
+extends base
+
+block content
+    form(role='form', method='POST')
+      input(type='hidden', name='_csrf', value=_csrf)
+      .form-group
+        input.form-control(type='text', name='host', autofocus, value=`${data.host}`, placeholder='host')
+        input.form-control(type='email', name='user', autofocus, value=`${data.user}`, placeholder='User')
+        input.form-control(type='password', name='password', autofocus, value=`${data.pwd}`, placeholder='Password')
+      button.btn.btn-primary(type='submit')
+        i
+        |  Login
