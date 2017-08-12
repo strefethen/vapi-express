@@ -20,7 +20,7 @@ Here are the npm packages used in this example:
 
     $ git clone https://github.com/strefethen/vapi-express.git
     $ cd vapi-express
-    $ yarn install
+    $ npm install
 
 ## Setup
 Edit .env and set your HOST, USERID and PASS vars to point to your vSphere **staging** host.
