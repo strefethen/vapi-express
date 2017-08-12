@@ -12,6 +12,7 @@ dotenv.load({ path: '.env' });
 app.use('/clarity-ui', express.static(__dirname + '/node_modules/clarity-ui/'));
 app.use('/clarity-icons', express.static(__dirname + '/node_modules/clarity-icons/'));
 
+// Used to parse the login input fields
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

@@ -3,6 +3,7 @@ extends base
 block sidebar
     section(class="sidenav-content")
         section(class="nav-group")
+            // Add a few stock vAPI calls to inspect vSphere
             ul(class="nav-list")
                 li
                     a(class="nav-link" href="?path=/vcenter/host") Host
@@ -20,5 +21,21 @@ block sidebar
                     a(class="nav-link" href="?path=/vcenter/vm") VM
 
 block content
+    // Basic table to display the results
+    if data
+        table(class="table table-striped")
+            tr
+                if data.constructor == Array
+                    for key in Object.keys(data[0])
+                        th #{key}
+            for t in data
+                tr
+                    if typeof t == 'string'
+                        td #{t}
+                    else
+                        for key in Object.keys(t)
+                            td #{t[key]}
+
+    // Display the raw JSON response
     h2 REST JSON Data
     p #{JSON.stringify(data)}

@@ -1,10 +1,6 @@
 exports.postLogin = function(req, res, next) {
   request = require('request');
 
-  let username = req.body.user;
-  let password = req.body.password;
-  let auth = "Basic " + new Buffer(username + ":" + password).toString("base64");
-
   request(
       {
           url : process.env.HOST + process.env.LOGIN_PATH,
@@ -14,7 +10,7 @@ exports.postLogin = function(req, res, next) {
           headers : {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
-              "Authorization" : auth
+              "Authorization" : "Basic " + new Buffer(req.body.user + ":" + req.body.password).toString("base64")
           }
       },
       function (error, response, body) {
@@ -28,6 +24,7 @@ exports.getvApi = function(req, res, next) {
 
   var path = '/vcenter/host';
 
+  // if the path was provided as a query param used that value instead
   if (Object.keys(req.query).length > 0) {
     path = req.query.path;
   }
@@ -46,20 +43,12 @@ exports.getvApi = function(req, res, next) {
       function (error, response, body) {
           if (response.statusCode == 401) {
             res.redirect('/');
-            return;
+          } else {
+            res.render('api', {
+              path: path,
+              data: JSON.parse(body).value
+            });
           }
-          var data = JSON.parse(body);
-          var template = 'api';
-          if (data.value && data.value.constructor != Array) {
-            template = 'apidict';
-          }
-          title = path.substring(1, path.length);
-          title = title.substring(title.indexOf('/') + 1, title.length);
-          res.render(template, {
-            title: title,
-            path: path,
-            data: data.value
-          });
         }
   );
 }
