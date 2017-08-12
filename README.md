@@ -14,6 +14,8 @@ Here are the npm packages used in this example:
 
     "dependencies": {
         "express": "^4.13.4",
+        "clarity-icons": "^0.10.0",
+        "clarity-ui": "^0.10.0",
         "pug": "^2.0.0-rc.3",
         "request": "^2.72.0",
         "body-parser": "^1.15.1",
@@ -32,4 +34,4 @@ Edit .env and set your HOST, USERID and PASS vars to point to your vSphere **sta
     $ npm start
 
 ## Using Clarity CSS
-The app includes a base template that renders the site using the CSS from [VMware's Clarity Design System CSS](https://clarity.design). Simply change "extends base" to "extends claritybase" in home.pug and api.pug.
+The app includes a base template that renders the site using the CSS from [VMware's Clarity Design System](https://clarity.design). Note, it does not use/require Angular rather it just uses the styling from Clarity. To use this alternative base template simply change "extends base" to "extends claritybase" in home.pug and api.pug.
