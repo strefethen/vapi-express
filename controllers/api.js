@@ -1,3 +1,7 @@
+/**
+ * Process the POST request from the login page using the credentials to log into the vAPI endpoint.
+ * Upon login, redirects to /api displaying the available hosts on the vSphere instance.
+ */
 exports.postLogin = function(req, res, next) {
   request = require('request');
 
@@ -19,6 +23,11 @@ exports.postLogin = function(req, res, next) {
   );
 }
 
+/**
+ * Handles API requests and by default returns /vcenter/host results. If a "path" query param
+ * is provided it will be used to call the endpoint with that route returning the results. In the event
+ * the user is not logged in they are redirected to the home page. Only includes basic error handling.
+ */
 exports.getvApi = function(req, res, next) {
   request = require('request');
 
