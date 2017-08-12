@@ -39,4 +39,4 @@ Edit .env and set your HOST, USERID and PASS vars to point to your vSphere **sta
     $ npm start
 
 ## Using Clarity CSS
-The app includes a base template to render the site using the CSS from [VMware's Clarity Design System](https://clarity.design). Note, it does not use/require Angular rather it just uses the styling from Clarity. To use this alternative base template simply change "extends base" to "extends claritybase" in home.pug and api.pug.
+The app includes a base template to render the site using the CSS from [VMware's Clarity Design System](https://clarity.design). Note, it does not use/require Angular rather it just uses the styling from Clarity. To use this alternative base template simply change "extends base" to "extends claritybase" in home.pug and api.pug or vise versa.
