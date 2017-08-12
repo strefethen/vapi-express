@@ -28,4 +28,4 @@ Edit .env and set your HOST, USERID and PASS vars to point to your vSphere **sta
     $ npm start
 
 ## Using Clarity CSS
-Simple change the "extends" in home.pug and api.pug to use "claritybase" rather than "base" to use the Clarity CSS.
+The app includes a base template that renders the site using the CSS from [VMware's Clarity Design System CSS](https://clarity.design). Simply change "extends base" to "extends claritybase" in home.pug and api.pug.
