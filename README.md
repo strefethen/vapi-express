@@ -4,7 +4,9 @@ Basic nodejs Express app to access the VMware vAPI REST endpoint using JavaScrip
 **NOTE:** This app is for demonstration purposes only and should NOT be used against your production vSphere environment until/unless you have thoroughly reviewed the code and understand what its doing.
 
 ## Requirements
-These are the following npm packages used in this example:
+NodeJS
+
+Here are the npm packages used in this example:
 
     "dependencies": {
         "express": "^4.13.4",
