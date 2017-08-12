@@ -1,11 +1,16 @@
 # vapi-express
 Basic nodejs Express app to access the VMware vAPI REST endpoint using JavaScript.
 
-**NOTE:** This app is for demonstration purposes only and should NOT be used against your production vSphere environment until/unless you have thoroughly reviewed the code and understand what its doing.
+**NOTE:** This app is for **demonstration purposes only** and should NOT be used against your production vSphere environment until/unless you have thoroughly reviewed the code and understand what its doing.
 
 ## Screenshot
 
 ![Sample /host API call](/sample.png?raw=true "Optional Title")
+
+## How it works
+When you "login" the credentials are passed to the vAPI endpoint and the nodejs server will keep the cookie returned from the endpoint and remain logged in. Subsequent calls will resubmit the cookie to allow the request to succeed. There is no sessoin management included in this demo as it's for illustration purposes only. Any user
+who accesses the site once logged in will be able to execute the included API calls. By default the application
+only makes use of read-only API calls and does not perform any CRUD operations beyond read.
 
 ## Requirements
 NodeJS
