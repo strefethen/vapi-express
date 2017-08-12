@@ -26,3 +26,6 @@ Here are the npm packages used in this example:
 Edit .env and set your HOST, USERID and PASS vars to point to your vSphere **staging** host.
 
     $ npm start
+
+## Using Clarity CSS
+Simple change the "extends" in home.pug and api.pug to use "claritybase" rather than "base" to use the Clarity CSS.

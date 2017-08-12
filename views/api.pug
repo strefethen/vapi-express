@@ -1,13 +1,24 @@
 extends base
 
+block sidebar
+    section(class="sidenav-content")
+        section(class="nav-group")
+            ul(class="nav-list")
+                li
+                    a(class="nav-link" href="?path=/vcenter/host") Host
+                li
+                    a(class="nav-link" href="?path=/vcenter/datacenter") Datacenter
+                li
+                    a(class="nav-link" href="?path=/vcenter/host") Datastore
+                li
+                    a(class="nav-link" href="?path=/vcenter/network") Clusters
+                li
+                    a(class="nav-link" href="?path=/vcenter/folder") Folders
+                li
+                    a(class="nav-link" href="?path=/vcenter/network") Networks
+                li
+                    a(class="nav-link" href="?path=/vcenter/vm") VM
+
 block content
-    h2 Links
-    ul
-        li
-            a(href="?path=/vcenter/host") Host
-        li
-            a(href="?path=/vcenter/datacenter") Datacenter
-        li
-            a(href="?path=/vcenter/host") Datastore
-    h2 Raw Data
+    h2 REST JSON Data
     p #{JSON.stringify(data)}
