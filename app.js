@@ -4,13 +4,15 @@ const path = require('path')
 const apiController = require('./controllers/api')
 const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
+var cookieParser = require('cookie-parser')
 
 dotenv.load({ path: '.env' });
 
-// HACK: This is a hack and not something that would/should be done in normal practice
-// HACK: These files should be hosted elsewhere for a "real" website
+// HACK: This is a demo hack as referring to files in node_modules is not something for production purposes.
+//       These files should be hosted elsewhere for a "real" website.
 app.use('/clarity-ui', express.static(__dirname + '/node_modules/clarity-ui/'));
 app.use('/clarity-icons', express.static(__dirname + '/node_modules/clarity-icons/'));
+app.use(cookieParser());
 
 // Used to parse the login input fields
 app.use(bodyParser.json());
@@ -24,9 +26,13 @@ app.get('/', function (req, res) {
   res.render('home', { data: { title: process.env.TITLE, host: process.env.HOST, user: process.env.USERID, pwd: process.env.PASS, }});
 });
 app.post('/', apiController.postLogin);
-app.get('/api', apiController.getvApi);
-
+app.get('/api', apiController.getvSphereApi);
+app.get('/logout', function (req, res) {
+  res.clearCookie('api-session');
+  res.clearCookie('host');
+  res.redirect('/');
+});
 
 app.listen(3000, function () {
-  console.log('vAPI REST example app listening on port 3000!')
+  console.log('vSphere REST example app listening on port 3000!')
 })
