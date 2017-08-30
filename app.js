@@ -17,17 +17,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('views', './views');
 app.set('view engine', 'pug');
 
-// NOTE: The HOST, USERID, PASS are defaulted from .env which is done to help expedite login for a demo
+// Login page (home page)
 app.get('/', function (req, res) {
   res.render('home', { data: { title: process.env.TITLE, host: process.env.HOST, user: process.env.USERID, pwd: process.env.PASS, }});
 });
+
+// Handle POST request for login
 app.post('/', apiController.postLogin);
-app.get('/inventory', apiController.getvSphereApi);
-app.get('/logout', function (req, res) {
-  res.clearCookie('api-session');
-  res.clearCookie('host');
-  res.redirect('/');
-});
+
+// Handle vSphere REST API requests
+app.get('/inventory', apiController.getApi);
+
+// Handle logout, close API session and clear client cookies
+app.get('/logout', apiController.getLogout);
 
 app.listen(3000, function () {
   console.log('vSphere REST example webapp listening on port 3000!')

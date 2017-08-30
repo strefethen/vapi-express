@@ -7,13 +7,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceRoot}/app.js"
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
+            "name": "Launch Inventory",
             "program": "${workspaceRoot}/app.js"
         }
     ]
