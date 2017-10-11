@@ -21,18 +21,29 @@ exports.postLogin = function(req, res, next) {
         "Authorization" : "Basic " + new Buffer(req.body.user + ":" + req.body.password).toString("base64")
     }
   }, function(error, response, body) {
-    if (response.statusCode < 400) {
-      // Save the vmware-api-session and host to cookies on the client
-      if (response.headers['set-cookie'] && response.headers['set-cookie'][0].startsWith('vmware-api-session')) {
-        res.cookie(apiCookie, response.headers['set-cookie'][0], { maxAge: 900000, httpOnly: true });
-        res.cookie(hostCookie, req.body.host, { maxAge: 900000, httpOnly: true });      
-      }
-      // Now that we're authenticated render the API page
-      res.redirect('/inventory');
+    if (error) {
+      res.render('home', { error: error.message });
+      return;
     } else {
-      res.redirect('/');
+      if (response.statusCode < 400) {
+        // Save the vmware-api-session and host to cookies on the client
+        if (response.headers['set-cookie'] && response.headers['set-cookie'][0].startsWith('vmware-api-session')) {
+          res.cookie(apiCookie, response.headers['set-cookie'][0], { maxAge: 900000, httpOnly: true });
+          res.cookie(hostCookie, req.body.host, { maxAge: 900000, httpOnly: true });      
+        }
+        // Now that we're authenticated redirect to render the inventory page
+        res.redirect('/inventory');
+      } else {
+        res.redirect('/', { error: response.statusMessage, 
+           data: { title: process.env.TITLE, host: process.env.HOST, user: process.env.USERID, pwd: process.env.PASS }
+         });
+      }
     }
   });
+}
+
+var splitTest = function (str) {
+  return str.split('\\').pop().split('/').pop();
 }
 
 /**
@@ -60,7 +71,7 @@ exports.getApi = async function(req, res, next) {
       headers : {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Cookie': req.cookies[apiCookie]         
+          'Cookie': req.cookies[apiCookie]
         }
     },
     function (error, response, body) {
@@ -77,6 +88,7 @@ exports.getApi = async function(req, res, next) {
           host: req.cookies.host,
           error: error,
           path: path,
+          id: splitTest(path),
           data: data
         });
       }

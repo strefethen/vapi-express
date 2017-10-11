@@ -9,13 +9,42 @@ Basic [nodejs](https://nodejs.org/) [Express](https://expressjs.com/) web applic
 
 ![Sample /host API call](/sample.png?raw=true "Optional Title")
 
+## Install and run the web app
+From the vSphere Automation SDK for REST folder do the following:
+
+    $ cd samples/webapp
+    $ npm install
+
+### Edit Configuration File
+If you are not using Wiremock (see below) you will need to edit the file ./samples/webapp/.env and set your HOST, USERID and PASS vars to point to your vSphere **staging** host.
+
+    USERID=administrator@vsphere.local
+    PASS=VMware1!
+    LOGIN_PATH=/rest/com/vmware/cis/session
+    TITLE=vSphere REST Demo
+    HOST=<url to your vcenter host>
+
+### Setup mock infrastructure
+Included with this repo are a set of Wiremock files allowing you to mock the vSphere REST API and run the sample. You'll need to [download wiremock](http://wiremock.org/) and run it as follows:
+
+    java -jar wiremock-standalone-2.5.0.jar --https-port=8082 --verbose --root-dir <path-to-repo-wiremock-folder>
+
+Example:
+
+    java -jar ~/Downloads/wiremock/wiremock-standalone-2.5.0.jar --https-port=8082 --verbose --root-dir ~/github/vapi-express/wiremock
+
+### Run the server
+Start the Express web app:
+
+   $ npm start
+
+Finally, browse to [localhost:3000](http://localhost:3000) to view the login page.
+
 ## How it works
 This simple two-page web application illustrates how to authenticate to the vSphere REST API endpoint and make subsequent calls to the API to return information from a vCenter server instance. The home page is a login page and upon successful authentication displays an inventory (/inventory) page which renders the results of an vSphere REST API call. By default the application displays a list of the hosts from the [/rest/vcenter/host](https://code.vmware.com/apis/191/vsphere-automation#/doc/operations/com/vmware/vcenter/host.list-operation.html) API. The inventory page also accepts a "path" query parameter to call other API's (ex. /?path=/rest/vcenter/datastore). The application as written only supports HTTP GET calls to the REST API meaning it's read-only.
 
 ## Requirements
-NodeJS
-
-Additional npm packages used in this example:
+npm packages used in this example:
 
     "dependencies": {
         "express": "^4.13.4",
@@ -25,30 +54,6 @@ Additional npm packages used in this example:
         "body-parser": "^1.15.1",
         "dotenv": "^2.0.0"
     },
-
-## Install
-
-    $ git clone https://github.com/strefethen/vapi-express.git
-    $ cd vapi-express
-    $ npm install
-
-## Setup
-Edit the file ".env" and set your HOST, USERID and PASS vars to point to your vSphere **staging** host.
-
-    $ npm start
-
-Or
-
-    $ node app.js
-
-### Using mock infrastructure
-Included with this repo are a set of Wiremock files allowing you to mock the vSphere REST API and run the sample. You'll need to [download wiremock](http://wiremock.org/) and run it as follows:
-
-    java -jar wiremock-standalone-2.5.0.jar --https-port=8082 --verbose --root-dir <path-to-repo-wiremock-folder>
-
-Example:
-
-    java -jar ~/Downloads/wiremock/wiremock-standalone-2.5.0.jar --https-port=8082 --verbose --root-dir ~/github/vapi-express/wiremock
 
 ## Using Clarity CSS
 The app includes a base template to render the site using the CSS from [VMware's Clarity Design System](https://clarity.design) however is not a full clarity-seed application and does not require Angular.
