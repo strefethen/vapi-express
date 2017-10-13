@@ -67,23 +67,31 @@ block content
     h2 #{host}
     div API: #{path}
     if data
-        table(class="table table-striped")
-            tr
-                if (data.constructor == Array && data.length > 0)
-                    for key in Object.keys(data[0])
-                        th #{key}
-            for t in data
+        if typeof data != "object"
+            p #{data}
+        else
+            table(class="table table-striped")
                 tr
-                    if typeof t == 'string'
-                        td #{t}
+                    if (data.constructor == Array && data.length > 0)
+                        if typeof data[0] == 'string'
+                            th value
+                        else
+                            for key in Object.keys(data[0])
+                                th #{key}
                     else
-                        for key in Object.keys(t)
-                            // Optionally display links for ID fields to see nested data
-                            if (key == id)
-                                td
-                                    a(href=`?path=${path}\/${t[key]}`) #{t[key]}
-                            else
-                                td #{JSON.stringify(t[key])}
+                        th value
+                for t in data
+                    tr
+                        if typeof t == 'string'
+                            td #{t}
+                        else
+                            for key in Object.keys(t)
+                                // Optionally display links for ID fields to see nested data
+                                if (key == id)
+                                    td
+                                        a(href=`?path=${path}\/${t[key]}`) #{t[key]}
+                                else
+                                    td #{JSON.stringify(t[key])}
 
     // Display the raw JSON response
     h2 REST JSON Data
