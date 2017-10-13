@@ -8,10 +8,6 @@ const request = require('sync-request')
 
 dotenv.load({ path: '.env' });
 
-var res = request('GET', 'http://10.132.99.217:8080/peek');
-var body = JSON.parse(res.getBody('utf8'));
-var host = body.layer1[0].vc[0].systemPNID;
-
 // NOTE: As this is a demo we're referring to files in node_modules which is not something for production purposes.
 app.use('/clarity-ui', express.static(__dirname + '/node_modules/clarity-ui/'));
 
@@ -24,6 +20,9 @@ app.set('view engine', 'pug');
 
 // Login page (home page)
 app.get('/', function (req, res) {
+  var response = request('GET', 'http://10.132.99.217:8080/peek');
+  var body = JSON.parse(response.getBody('utf8'));
+  var host = body.layer1[0].vc[0].systemPNID;
   res.render('home', { data: { title: process.env.TITLE, host: `https://${host}`, user: process.env.USERID, pwd: process.env.PASS, }});
 });
 
