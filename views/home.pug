@@ -10,4 +10,5 @@ block content
                 input(type="text" name="host" id="login_host" placeholder="Host" value=`${data.host}`)
                 input(class="username" type="email" name="user" id="login_username" placeholder="Username" value=`${data.user}`)
                 input(class="password" type="password" name="password" id="login_password" placeholder="Password" value=`${data.pwd}`)
+                input(type="hidden" value=`${data.redirect}`)
                 button(type="submit" class="btn btn-primary") LOGIN

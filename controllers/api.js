@@ -34,7 +34,10 @@ exports.postLogin = function(req, res, next) {
           res.cookie(hostCookie, req.body.host, { maxAge: 900000, httpOnly: true });      
         }
         // Now that we're authenticated redirect to render the inventory page
-        res.redirect('/inventory');
+        if (req.query.redirect)
+          res.redirect(`/inventory?path=${req.query.redirect}`);
+        else
+          res.redirect('/inventory');
       } else {
         console.log(`Error: ${response.statusCode} ${response.statusMessage}`);
         res.redirect('/', { error: response.statusMessage, 
@@ -64,7 +67,7 @@ exports.getApi = async function(req, res, next) {
 
   // If there is no api-session cookie, redirect to the login page
   if (req.cookies[apiCookie] === undefined || req.cookies[hostCookie] === undefined) {
-    res.redirect('/');
+    res.redirect(`/?redirect=${path}`);
     return;
   }
 
@@ -80,10 +83,14 @@ exports.getApi = async function(req, res, next) {
         }
     },
     function (error, response, body) {
-      if (error || response.statusCode >= 400) {
-        console.log(`Error: ${response.statusCode} ${response.statusMessage}`);
-        error = response.statusMessage
-        res.render('api', { error: error });
+      if (error) {
+        if(response && response.statusCode >= 400) {
+          console.log(`Error: ${response.statusCode} ${response.statusMessage}`);
+          error = response.statusMessage
+          res.render('api', { error: error });
+        } else {
+          res.render('api', { error: error.message });          
+        }
       } else {
         try {
           var data = JSON.parse(body).value;

@@ -25,7 +25,8 @@ app.get('/', function (req, res) {
   var body = JSON.parse(response.getBody('utf8'));
   var host = body.layer1[0].vc[0].systemPNID;
   console.log(`Logging in: ${host}`);
-  res.render('home', { data: { title: process.env.TITLE, host: `https://${host}`, user: process.env.USERID, pwd: process.env.PASS, }});
+  req.url = req.url + `?redirect=test`;
+  res.render('home', { data: { redirect: req.query.redirect, title: process.env.TITLE, host: `https://${host}`, user: process.env.USERID, pwd: process.env.PASS, }});
 });
 
 // Handle POST request for login
