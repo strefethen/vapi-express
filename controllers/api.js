@@ -95,7 +95,8 @@ exports.getApi = async function(req, res, next) {
           error: error,
           path: path,
           id: splitTest(path).replace('-', '_'),
-          data: data
+          data: data,
+          raw: body
         });
       }
     }
