@@ -1,5 +1,9 @@
 extends claritybase
 
+block headstyle
+    style.
+        .language-json { font-size: 9pt; }
+
 block header
     div(class="header-actions")
         a(href="/logout" class="nav-link nav-text") Logout
@@ -98,7 +102,7 @@ block content
                                     td #{JSON.stringify(t[key])}
 
     // Display the raw JSON response
-    h2 REST JSON Data
+    h4 REST JSON Data
     pre
         code(class="language-json").
             #{raw}
