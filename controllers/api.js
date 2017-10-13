@@ -36,6 +36,7 @@ exports.postLogin = function(req, res, next) {
         // Now that we're authenticated redirect to render the inventory page
         res.redirect('/inventory');
       } else {
+        console.log(`Error: ${response.statusCode} ${response.statusMessage}`);
         res.redirect('/', { error: response.statusMessage, 
            data: { title: process.env.TITLE, host: process.env.HOST, user: process.env.USERID, pwd: process.env.PASS }
          });
@@ -80,6 +81,7 @@ exports.getApi = async function(req, res, next) {
     },
     function (error, response, body) {
       if (error || response.statusCode >= 400) {
+        console.log(`Error: ${response.statusCode} ${response.statusMessage}`);
         error = response.statusMessage
         res.render('api', { error: error });
       } else {
@@ -92,7 +94,7 @@ exports.getApi = async function(req, res, next) {
           host: req.cookies.host,
           error: error,
           path: path,
-          id: splitTest(path),
+          id: splitTest(path).replace('-', '_'),
           data: data
         });
       }
