@@ -11,6 +11,8 @@ const useSSL = false;
 exports.postLogin = function(req, res, next) {
   request = require('request');
   
+  console.log(`Logging in: ${req.body.user} on ${req.body.host}`);
+
   request({
     url : req.body.host + process.env.LOGIN_PATH,
     method: 'POST',
@@ -55,6 +57,8 @@ exports.getApi = async function(req, res, next) {
   // Use either default API request or "path" queryparam
   var path = Object.keys(req.query).length > 0 ? req.query.path : '/rest/vcenter/host';
 
+  console.log(`API request: ${path} on ${req.cookies.host}`);
+  
   request = require('request');
 
   // If there is no api-session cookie, redirect to the login page
@@ -101,7 +105,9 @@ exports.getApi = async function(req, res, next) {
  */
 exports.getLogout = function(req, res, next) {
   request = require('request');
-  
+
+  console.log(`Logging out: ${req.cookies.host}`);
+
   request({
     url : req.cookies.host + '/rest/com/vmware/cis/session',
     method: 'DELETE',
