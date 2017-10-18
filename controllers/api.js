@@ -83,29 +83,23 @@ exports.getApi = async function(req, res, next) {
         }
     },
     function (error, response, body) {
-      if (error) {
+      try {
         if(response && response.statusCode >= 400) {
           console.log(`Error: ${response.statusCode} ${response.statusMessage}`);
           error = response.statusMessage
-          res.render('api', { error: error });
-        } else {
-          res.render('api', { error: error.message });          
         }
-      } else {
-        try {
-          var data = JSON.parse(body).value;
-        } catch(exception) {
-          error = exception.message;
-        }
-        res.render('api', {
-          host: req.cookies.host,
-          error: error,
-          path: path,
-          id: splitTest(path).replace('-', '_'),
-          data: data,
-          raw: JSON.stringify(JSON.parse(body), null, '\t')
-        });
+        var data = JSON.parse(body).value;
+      } catch(exception) {
+        error = exception.message;
       }
+      res.render('api', {
+        host: req.cookies.host,
+        error: error,
+        path: path,
+        id: splitTest(path).replace('-', '_'),
+        data: data,
+        raw: JSON.stringify(JSON.parse(body), null, '\t')
+      });
     }
   );
 }
