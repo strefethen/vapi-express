@@ -7,7 +7,10 @@ block content
                 h3(class="welcome") Welcome to #{data.title}
                 h5(class="hint") Use your vSphere account to sign in
             .login-group
-                input(type="text" name="host" id="login_host" placeholder="Host" value=`${data.host}`)
+                input(list="hosts" type="text" name="host" id="login_host" placeholder="Host" value=`${data.host}`)
+                datalist(id="hosts")
+                    for host in data.hosts
+                        option(value=host)
                 input(class="username" type="email" name="user" id="login_username" placeholder="Username" value=`${data.user}`)
                 input(class="password" type="password" name="password" id="login_password" placeholder="Password" value=`${data.pwd}`)
                 input(type="hidden" value=`${data.redirect}`)

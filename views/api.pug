@@ -70,36 +70,87 @@ block sidebar
                 li
                     a(class="nav-link" href="?path=/rest/appliance/vmon/service") VMon Service
 
+mixin objectTable(data)
+    table(class="table table-striped")
+        tr
+            for key in Object.keys(data)
+                th(class="left") #{key}
+        tr
+            for key in Object.keys(data)
+                if typeof data[key] == 'object'
+                    td 
+                        +objectTable(data[key])
+                else
+                    if data[key].constructor == Array
+                        td +tableArray(data[key])
+                    else
+                        td #{data[key]}
+    
+
+mixin tableArray(data)
+    - console.log('test')
+    if data == []
+        - console.log('test')
+        div testing
+    else
+        table(class="table table-striped")
+            tr
+                for key in Object.keys(data[0])
+                    th(class="left") #{key}
+            for t in data
+                tr
+                    if typeof t == 'string'
+                        td(class="left") #{t}
+                    else
+                        for key in Object.keys(t)
+                            // Optionally display links for ID fields to see nested data
+                            if (key == id)
+                                td(class="left")
+                                    strong
+                                        a(href=`?path=${path}\/${t[key]}`) #{t[key]}
+                            else
+                                if typeof t[key] == "object"
+                                    td 
+                                        +tableData(t[key])
+                                    //td(class="left") #{JSON.stringify(t[key])}
+                                else
+                                    td(class="left") #{t[key]}
+
+mixin tableData(data)
+        table(class="table table-striped")
+            tr
+                if (data.constructor == Array && data.length > 0)
+                    if typeof data[0] == 'string'
+                        th(class="left") value
+                    else
+                        for key in Object.keys(data[0])
+                            th(class="left") #{key}
+                else
+                    th(class="left") value
+            for t in data
+                tr
+                    if typeof t == 'string'
+                        td(class="left") #{t}
+                    else
+                        for key in Object.keys(t)
+                            // Optionally display links for ID fields to see nested data
+                            if (key == id)
+                                td(class="left")
+                                    strong
+                                        a(href=`?path=${path}\/${t[key]}`) #{t[key]}
+                            else
+                                if typeof t[key] == "object"
+                                    td(class="left") #{JSON.stringify(t[key])}
+                                else
+                                    td(class="left") #{t[key]}
+
+
 block content
     // Basic table to display the results
     h2 #{host}
     div API: #{path}
     if data
-        if typeof data != "object"
-            p #{data}
-        else
-            table(class="table table-striped")
-                tr
-                    if (data.constructor == Array && data.length > 0)
-                        if typeof data[0] == 'string'
-                            th value
-                        else
-                            for key in Object.keys(data[0])
-                                th #{key}
-                    else
-                        th value
-                for t in data
-                    tr
-                        if typeof t == 'string'
-                            td #{t}
-                        else
-                            for key in Object.keys(t)
-                                // Optionally display links for ID fields to see nested data
-                                if (key == id)
-                                    td
-                                        a(href=`?path=${path}\/${t[key]}`) #{t[key]}
-                                else
-                                    td #{JSON.stringify(t[key])}
+        +tableData(data)
 
     // Display the raw JSON response
     h4 REST JSON Data
