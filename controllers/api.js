@@ -86,7 +86,7 @@ exports.getApi = async function(req, res, next) {
       try {
         if(response && response.statusCode >= 400) {
           console.log(`Error: ${response.statusCode} ${response.statusMessage}`);
-          error = response.statusMessage
+          error = `${response.statusCode}: ${response.statusMessage}`;
         }
         var data = JSON.parse(body).value;
       } catch(exception) {
