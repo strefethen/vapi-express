@@ -52,6 +52,12 @@ block sidebar
                 li
                     a(class="nav-link" href="?path=/rest/appliance/health/mem") Appliance Health System
                 li
+                    a(class="nav-link" href="?path=/rest/appliance/recovery") Appliance Recovery
+                li
+                    a(class="nav-link" href="?path=/rest/appliance/recovery/backup/parts") Appliance Recovery Backup Parts
+                li
+                    a(class="nav-link" href="?path=/rest/appliance/recovery/backup/job") Appliance Recovery Backup Jobs
+                li
                     a(class="nav-link" href="?path=/rest/appliance/networking/dns/domains") DNS Domains
                 li
                     a(class="nav-link" href="?path=/rest/appliance/networking/dns/hostname") DNS Host Name
@@ -124,12 +130,13 @@ mixin verticalTable(data)
 block content
     h2 #{host}
     div API: #{path}
-    if Array.isArray(data)
-        +arrayTable(data)
-    else if typeof data === 'object' && !Array.isArray(data)
-        +verticalTable(data)
-    else
-        div #{data}
+    if !error
+        if Array.isArray(data)
+            +arrayTable(data)
+        else if typeof data === 'object' && !Array.isArray(data)
+            +verticalTable(data)
+        else
+            div #{data}
 
     h4 REST JSON Data
     pre
