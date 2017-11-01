@@ -41,53 +41,86 @@ block sidebar
                     a(class="nav-link" href="?path=/rest/vcenter/resource-pool") Resource Pool
                 li
                     a(class="nav-link" href="?path=/rest/com/vmware/content/library") Content Library
+        section(class="nav-group")
+            label(for="tabexample2") Appliance Access
+            ul(class="nav-list")
                 li
-                    a(class="nav-link" href="?path=/rest/appliance/access/consolecli") Appliance Console CLI
+                    a(class="nav-link" href="?path=/rest/appliance/access/consolecli") Console CLI
                 li
-                    a(class="nav-link" href="?path=/rest/appliance/dcui") Appliance dcui
+                    a(class="nav-link" href="?path=/rest/appliance/access/dcui") dcui
                 li
-                    a(class="nav-link" href="?path=/rest/appliance/ssh") Appliance ssh
+                    a(class="nav-link" href="?path=/rest/appliance/access/ssh") ssh
                 li
-                    a(class="nav-link" href="?path=/rest/appliance/shell") Appliance shell
+                    a(class="nav-link" href="?path=/rest/appliance/access/shell") shell
+        section(class="nav-group")
+            label(for="tabexample2") Appliance Recovery
+            ul(class="nav-list")
                 li
-                    a(class="nav-link" href="?path=/rest/appliance/recovery") Appliance Recovery                   
+                    a(class="nav-link" href="?path=/rest/appliance/recovery") Recovery                   
                 li
-                    a(class="nav-link" href="?path=/rest/appliance/health/applmgmt") Appliance Health
+                    a(class="nav-link" href="?path=/rest/appliance/recovery/backup/parts") Backup Parts
                 li
-                    a(class="nav-link" href="?path=/rest/appliance/health/load") Appliance Health Load
+                    a(class="nav-link" href="?path=/rest/appliance/recovery/backup/job") Backup Jobs
+        section(class="nav-group")
+            label(for="tabexample2") Appliance Health
+            ul(class="nav-list")
                 li
-                    a(class="nav-link" href="?path=/rest/appliance/health/mem") Appliance Health Mem
+                    a(class="nav-link" href="?path=/rest/appliance/health/applmgmt") Health
                 li
-                    a(class="nav-link" href="?path=/rest/appliance/health/mem") Appliance Health System
+                    a(class="nav-link" href="?path=/rest/appliance/health/load") Load
                 li
-                    a(class="nav-link" href="?path=/rest/appliance/monitoring") Appliance Monitoring
+                    a(class="nav-link" href="?path=/rest/appliance/health/mem") Mem
                 li
-                    a(class="nav-link" href="?path=/rest/appliance/monitoring/snmp/stats") Appliance Monitoring SNMP stats
+                    a(class="nav-link" href="?path=/rest/appliance/health/mem") System
                 li
-                    a(class="nav-link" href="?path=/rest/appliance/recovery") Appliance Recovery
+                    a(class="nav-link" href="?path=/rest/appliance/health/database-storage") Database Storage
                 li
-                    a(class="nav-link" href="?path=/rest/appliance/recovery/backup/parts") Appliance Recovery Backup Parts
+                    a(class="nav-link" href="?path=/rest/appliance/health/storage") Storage
                 li
-                    a(class="nav-link" href="?path=/rest/appliance/recovery/backup/job") Appliance Recovery Backup Jobs
+                    a(class="nav-link" href="?path=/rest/appliance/health/software-packages") Sofware Packages
+                li
+                    a(class="nav-link" href="?path=/rest/appliance/health/swap") Swap
+        section(class="nav-group")
+            label(for="tabexample2") Appliance Monitoring
+            ul(class="nav-list")
+                li
+                    a(class="nav-link" href="?path=/rest/appliance/monitoring") Monitoring
+                li
+                    a(class="nav-link" href="?path=/rest/appliance/monitoring/snmp/stats") SNMP stats
+        section(class="nav-group")
+            label(for="tabexample2") Appliance Networking
+            ul(class="nav-list")                    
                 li
                     a(class="nav-link" href="?path=/rest/appliance/networking/dns/domains") DNS Domains
                 li
                     a(class="nav-link" href="?path=/rest/appliance/networking/dns/hostname") DNS Host Name
                 li
+                    a(class="nav-link" href="?path=/rest/appliance/networking/dns/servers") DNS Servers
+                li
                     a(class="nav-link" href="?path=/rest/appliance/networking/interfaces") Networking Interfaces
                 li
-                    a(class="nav-link" href="?path=/rest/appliance/recovery/backup/job") Recovery Backup Jobs
+                    a(class="nav-link" href="?path=/rest/appliance/techpreview/networking/firewall/addr/inbound") Firewall Inbound
+        section(class="nav-group")
+            label(for="tabexample2") Appliance System
+            ul(class="nav-list")
                 li
-                    a(class="nav-link" href="?path=/rest/appliance/system/storage") System Storage
+                    a(class="nav-link" href="?path=/rest/appliance/system/storage") Storage
                 li
-                    a(class="nav-link" href="?path=/rest/appliance/system/time") System Time
+                    a(class="nav-link" href="?path=/rest/appliance/system/time") Time
                 li
-                    a(class="nav-link" href="?path=/rest/appliance/system/uptime") System Uptime
+                    a(class="nav-link" href="?path=/rest/appliance/system/uptime") Uptime
                 li
-                    a(class="nav-link" href="?path=/rest/appliance/system/version") System Version
+                    a(class="nav-link" href="?path=/rest/appliance/system/version") Version
+        section(class="nav-group")
+            label(for="tabexample2") Appliance VMon
+            ul(class="nav-list")
                 li
                     a(class="nav-link" href="?path=/rest/appliance/vmon/service") VMon Service
-
+        section(class="nav-group")
+            label(for="tabexample2") Appliance Tech Preview
+            ul(class="nav-list")
+                li
+                    a(class="nav-link" href="?path=/rest/appliance/techpreview/services") Services
 
 mixin arrayTable(data)
     if Array.isArray(data) && data.length > 0
