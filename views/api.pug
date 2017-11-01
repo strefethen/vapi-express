@@ -108,7 +108,7 @@ mixin arrayTable(data)
                                     td
                                         +verticalTable(row[key])
                                 else
-                                    if (key == id || key == 'id')
+                                    if (key == id || key == 'id' || key == 'key')
                                         td(class="left")
                                             strong
                                                 a(href=`?path=${path}\/${row[key]}`) #{row[key]}
