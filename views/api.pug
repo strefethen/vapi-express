@@ -52,6 +52,8 @@ block sidebar
                 li
                     a(class="nav-link" href="?path=/rest/appliance/health/mem") Appliance Health System
                 li
+                    a(class="nav-link" href="?path=/rest/appliance/monitoring") Appliance Monitoring
+                li
                     a(class="nav-link" href="?path=/rest/appliance/recovery") Appliance Recovery
                 li
                     a(class="nav-link" href="?path=/rest/appliance/recovery/backup/parts") Appliance Recovery Backup Parts
@@ -95,7 +97,7 @@ mixin arrayTable(data)
                                     td
                                         +verticalTable(row[key])
                                 else
-                                    if (key == id)
+                                    if (key == id || key == 'id')
                                         td(class="left")
                                             strong
                                                 a(href=`?path=${path}\/${row[key]}`) #{row[key]}
@@ -120,7 +122,7 @@ mixin verticalTable(data)
                             td(class="left")
                                 +arrayTable(data)
                         else
-                            if (key == id)
+                            if (key == id || key == 'id')
                                 td(class="left")
                                     strong
                                         a(href=`?path=${path}\/${data[key]}`) #{data[key]}
