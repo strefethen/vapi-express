@@ -28,19 +28,29 @@ block sidebar
                 li
                     a(class="nav-link" href="?path=/rest/vcenter/vm") VM
                 li
-                    a(class="nav-link" href="?path=/rest/vcenter/folder") Folders
+                    a(class="nav-link" href="?path=/rest/com/vmware/vcenter/ovf/export-flag") OVF Export Flag
+                //li
+                //    a(class="nav-link" href="?path=/rest/com/vmware/vcenter/ovf/import-flag") OVF Import Flag
+        section(class="nav-group")
+            label(for="tabexample2") Tagging
+            ul(class="nav-list")
                 li
                     a(class="nav-link" href="?path=/rest/com/vmware/cis/tagging/category") Categories
                 li
                     a(class="nav-link" href="?path=/rest/com/vmware/cis/tagging/tag") Tags
                 li
-                    a(class="nav-link" href="?path=/rest/com/vmware/vcenter/ovf/export-flag") OVF Export Flag
-                //li
-                //    a(class="nav-link" href="?path=/rest/com/vmware/vcenter/ovf/import-flag") OVF Import Flag
-                li
                     a(class="nav-link" href="?path=/rest/vcenter/resource-pool") Resource Pool
+        section(class="nav-group")
+            label(for="tabexample2") Content Library
+            ul(class="nav-list")
                 li
-                    a(class="nav-link" href="?path=/rest/com/vmware/content/library") Content Library
+                    a(class="nav-link" href="?path=/rest/com/vmware/content/library") Libraries
+                li
+                    a(class="nav-link" href="?path=/rest/com/vmware/content/library/item/download-session") Download Sessions
+                li
+                    a(class="nav-link" href="?path=/rest/com/vmware/content/local-library") Local Libraries
+                li
+                    a(class="nav-link" href="?path=/rest/com/vmware/content/subscribed-library") Subscribed Libraries
         section(class="nav-group")
             label(for="tabexample2") Appliance Access
             ul(class="nav-list")
@@ -126,14 +136,28 @@ mixin arrayTable(data)
     if Array.isArray(data) && data.length > 0
         table(class="table table-striped")
             if typeof data[0] === 'string'
+                if (path.endsWith('/content/library'))
+                    tr
+                        th(class="left") Library
+                        th(class="left") Items
+                else if (path.includes('/content/library/item'))
+                    tr
+                        th(class="left") Items                
                 for row in data
                     tr
-                        if (path.includes("/"))
+                        - console.log(path)
+                        if (path.endsWith("/content/library") || path.endsWith('/content/subscribed-library') || path.endsWith('/content/local-library'))
                             td(class="left")
                                 strong
-                                    a(href=`?path=${path}id:${row}`) #{row}
-                            
-                        else
+                                    a(href=`?path=${path}/id:${row}`) #{row}
+                            td(class="left")
+                                strong
+                                    a(href=`?path=${path}/item?library_id=${row}`) #{row}                            
+                        else if (path.includes("/content/library/item"))
+                            td(class="left")
+                                strong
+                                    a(href=`?path=${path.split('?')[0]}/id:${row}`) #{row}
+                        else    
                             td(class="left") #{row}
             else
                 tr
@@ -148,13 +172,12 @@ mixin arrayTable(data)
                                 if typeof row[key] === 'object'
                                     td
                                         +verticalTable(row[key])
+                                else if (key == id || key == 'id' || key == 'key')
+                                    td(class="left")
+                                        strong
+                                            a(href=`?path=${path}\/${row[key]}`) #{row[key]}
                                 else
-                                    if (key == id || key == 'id' || key == 'key')
-                                        td(class="left")
-                                            strong
-                                                a(href=`?path=${path}\/${row[key]}`) #{row[key]}
-                                    else
-                                        td(class="left") #{row[key]}
+                                    td(class="left") #{row[key]}
     else
         div []
 
@@ -174,10 +197,18 @@ mixin verticalTable(data)
                             td(class="left")
                                 +arrayTable(data)
                         else
-                            if (key == id || key == 'id')
+                            if (key == id || key == 'id' && !path.includes('content/library/item'))
                                 td(class="left")
                                     strong
                                         a(href=`?path=${path}\/${data[key]}`) #{data[key]}
+                            else if (key == 'publish_url')
+                                td(class="left")
+                                    strong
+                                        a(href=`${data[key]}` target="_blank") #{data[key]}
+                            else if (key == 'library_id')
+                                td(class="left")
+                                    strong
+                                        a(href=`?path=/rest/com/vmware/content/library/id:${data[key]}`) #{data[key]}
                             else
                                 td(class="left") #{data[key]}
 
