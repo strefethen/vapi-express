@@ -124,10 +124,18 @@ block sidebar
 
 mixin arrayTable(data)
     if Array.isArray(data) && data.length > 0
-        if typeof data[0] === 'string'
-            div #{data[0]}
-        else
-            table(class="table table-striped")
+        table(class="table table-striped")
+            if typeof data[0] === 'string'
+                for row in data
+                    tr
+                        if (path.includes("/"))
+                            td(class="left")
+                                strong
+                                    a(href=`?path=${path}id:${row}`) #{row}
+                            
+                        else
+                            td(class="left") #{row}
+            else
                 tr
                     for key in Object.keys(data[0])
                         th(class="left") #{key}
