@@ -195,7 +195,7 @@ mixin verticalTable(data)
                         th(class="left") #{key}
                         if Array.isArray(data[key])
                             td(class="left")
-                                +arrayTable(data)
+                                +arrayTable(data[key])
                         else
                             if (key == id || key == 'id' && !path.includes('content/library/item'))
                                 td(class="left")
