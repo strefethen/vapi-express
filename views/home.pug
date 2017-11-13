@@ -4,14 +4,15 @@ block content
     .login-wrapper
         form(class="login" method="POST")
             label(class="title")
-                h3(class="welcome") Welcome to #{data.title}
+                h3(class="welcome") Welcome to #{title}
                 h5(class="hint") Use your vSphere account to sign in
             .login-group
-                input(list="hosts" type="text" name="host" id="login_host" placeholder="Host" value=`${data.host}`)
-                datalist(id="hosts")
-                    for host in data.hosts
-                        option(value=host)
-                input(class="username" type="email" name="user" id="login_username" placeholder="Username" value=`${data.user}`)
-                input(class="password" type="password" name="password" id="login_password" placeholder="Password" value=`${data.pwd}`)
-                input(type="hidden" value=`${data.redirect}`)
+                input(list="hosts" type="text" name="host" id="login_host" placeholder="Host" value=`${host}`)
+                if hosts
+                    datalist(id="hosts")
+                        for host in hosts
+                            option(value=host)
+                input(class="username" type="email" name="user" id="login_username" placeholder="Username" value=`${user}`)
+                input(class="password" type="password" name="password" id="login_password" placeholder="Password" value=`${pwd}`)
+                input(type="hidden" value=`${redirect}`)
                 button(type="submit" class="btn btn-primary") LOGIN

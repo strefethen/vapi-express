@@ -4,6 +4,7 @@ const apiController = require('./controllers/api')
 const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+const syncRequest = require('sync-request')
 const request = require('sync-request')
 
 dotenv.load({ path: '.env' });
@@ -19,14 +20,17 @@ app.set('views', './views');
 app.set('view engine', 'pug');
 
 // Login page (home page)
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
   console.log('Rendering login');
-  var response = request('GET', 'http://10.132.99.217:8080/peek');
+  var response = syncRequest('GET', 'http://10.132.99.217:8080/peek');
   var body = JSON.parse(response.getBody('utf8'));
-  var host = body.layer1[0].vc[0].systemPNID;
-  console.log(`Logging in: ${host}`);
-  req.url = req.url + `?redirect=test`;
-  res.render('home', { data: { redirect: req.query.redirect, title: process.env.TITLE, host: `https://${host}`, user: process.env.USERID, pwd: process.env.PASS, hosts: ["https://10.132.97.51"] }});
+  let host = '10.132.97.51';
+  try {
+    host = body.layer1[0].vc[0].systemPNID;
+    res.render('home', { redirect: req.query.redirect, title: process.env.TITLE, host: `https://${host}`, user: process.env.USERID, pwd: process.env.PASS, hosts: ["https://10.132.97.51"] });
+} catch(err) {
+    res.render('home', { redirect: req.query.redirect, title: process.env.TITLE, host: `https://${host}`, user: process.env.USERID, pwd: process.env.PASS, hosts: ["https://10.132.97.51"] });
+  }
 });
 
 // Handle POST request for login
