@@ -9,7 +9,7 @@ const useSSL = false;
  * Upon login, redirects to /api displaying the available hosts on the vSphere instance.
  */
 exports.postLogin = function(req, res, next) {
-  request = require('request');
+  const request = require('request');
   
   console.log(`Logging in: ${req.body.user} on ${req.body.host}`);
 
@@ -40,15 +40,19 @@ exports.postLogin = function(req, res, next) {
           res.redirect('/inventory');
       } else {
         console.log(`Error: ${response.statusCode} ${response.statusMessage}`);
-        res.redirect('/', { error: response.statusMessage, 
-           data: { title: process.env.TITLE, host: process.env.HOST, user: process.env.USERID, pwd: process.env.PASS }
+        res.redirect('/', 301, { 
+          error: response.statusMessage, 
+          title: process.env.TITLE, 
+          host: process.env.HOST, 
+          user: process.env.USERID, 
+          pwd: process.env.PASS
          });
       }
     }
   });
 }
 
-var splitTest = function (str) {
+var splitPath = function (str) {
   return str.split('\\').pop().split('/').pop();
 }
 
@@ -92,11 +96,25 @@ exports.getApi = async function(req, res, next) {
       } catch(exception) {
         error = exception.message;
       }
+      if (data && path.startsWith('/rest/vcenter/vm/vm-') && data.vm) {
+        data["power_service"] = `${path}/${data.vm}/power`;
+        data["cdrom_service"] = `${path}/${data.vm}/hardware/cdrom`;
+        data["boot_service"] = `${path}/${data.vm}/hardware/boot`;
+        data["serial_service"] = `${path}/${data.vm}/hardware/serial`;
+        data["floppy_service"] = `${path}/${data.vm}/hardware/floppy`;
+        data["memory_service"] = `${path}/${data.vm}/hardware/memory`;
+        data["disk_service"] = `${path}/${data.vm}/hardware/disk`;
+        data["ethernet_service"] = `${path}/${data.vm}/hardware/floppy`;
+        data["paralell_service"] = `${path}/${data.vm}/hardware/memory`;
+        data["cpu_service"] = `${path}/${data.vm}/hardware/disk`;        
+      }
       res.render('api', {
         host: req.cookies.host,
         error: error,
         path: path,
-        id: splitTest(path).replace('-', '_'),
+        // The following "id" is the key within the response that corresponds to the resource identifier.
+        // If the last portion of the id contains a "-" we convert it to "_" as resource identifier use "_".
+        id: splitPath(path).replace('-', '_'),
         data: data,
         raw: JSON.stringify(JSON.parse(body), null, '\t')
       });
