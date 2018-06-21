@@ -22,7 +22,7 @@ app.set('view engine', 'pug');
 // Login page (home page)
 app.get('/', (req, res) => {
   console.log('Rendering login');
-  var response = syncRequest('GET', 'http://10.132.99.217:8080/peek');
+  var response = syncRequest('GET', 'http://10.132.99.217/peek');
   var body = JSON.parse(response.getBody('utf8'));
   let host = '10.132.97.51';
   try {
