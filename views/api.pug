@@ -51,6 +51,8 @@ block sidebar
                     a(class="nav-link" href="?path=/rest/com/vmware/content/local-library") Local Libraries
                 li
                     a(class="nav-link" href="?path=/rest/com/vmware/content/subscribed-library") Subscribed Libraries
+                li
+                    a(class="nav-link" href="?path=/rest/com/vmware/content/library/item/storage?library_item_id=") Storage
         section(class="nav-group")
             label(for="tabexample2") Appliance Access
             ul(class="nav-list")
@@ -62,15 +64,6 @@ block sidebar
                     a(class="nav-link" href="?path=/rest/appliance/access/ssh") ssh
                 li
                     a(class="nav-link" href="?path=/rest/appliance/access/shell") shell
-        section(class="nav-group")
-            label(for="tabexample2") Appliance Recovery
-            ul(class="nav-list")
-                li
-                    a(class="nav-link" href="?path=/rest/appliance/recovery") Recovery                   
-                li
-                    a(class="nav-link" href="?path=/rest/appliance/recovery/backup/parts") Backup Parts
-                li
-                    a(class="nav-link" href="?path=/rest/appliance/recovery/backup/job") Backup Jobs
         section(class="nav-group")
             label(for="tabexample2") Appliance Health
             ul(class="nav-list")
@@ -91,6 +84,16 @@ block sidebar
                 li
                     a(class="nav-link" href="?path=/rest/appliance/health/swap") Swap
         section(class="nav-group")
+            label(for="tabexample2") Appliance Local Accounts
+            ul(class="nav-list")
+                li
+                    a(class="nav-link" href="?path=/rest/appliance/local-accounts/global-policy") Policy
+        section(class="nav-group")
+            label(for="tabexample2") Appliance Logging
+            ul(class="nav-list")
+                li
+                    a(class="nav-link" href="?path=/rest/appliance/logging/forwarding") Forwarding
+        section(class="nav-group")
             label(for="tabexample2") Appliance Monitoring
             ul(class="nav-list")
                 li
@@ -110,6 +113,19 @@ block sidebar
                     a(class="nav-link" href="?path=/rest/appliance/networking/interfaces") Networking Interfaces
                 li
                     a(class="nav-link" href="?path=/rest/appliance/techpreview/networking/firewall/addr/inbound") Firewall Inbound
+                li
+                    a(class="nav-link" href="?path=/rest/appliance/techpreview/networking/noproxy") Noproxy
+                li
+                    a(class="nav-link" href="?path=/rest/appliance/techpreview/networking/proxy") Proxy
+        section(class="nav-group")
+            label(for="tabexample2") Appliance Recovery
+            ul(class="nav-list")
+                li
+                    a(class="nav-link" href="?path=/rest/appliance/recovery") Recovery                   
+                li
+                    a(class="nav-link" href="?path=/rest/appliance/recovery/backup/parts") Backup Parts
+                li
+                    a(class="nav-link" href="?path=/rest/appliance/recovery/backup/job") Backup Jobs
         section(class="nav-group")
             label(for="tabexample2") Appliance System
             ul(class="nav-list")
@@ -117,6 +133,8 @@ block sidebar
                     a(class="nav-link" href="?path=/rest/appliance/system/storage") Storage
                 li
                     a(class="nav-link" href="?path=/rest/appliance/system/time") Time
+                li
+                    a(class="nav-link" href="?path=/rest/appliance/system/time/timezone") Time Zone
                 li
                     a(class="nav-link" href="?path=/rest/appliance/system/uptime") Uptime
                 li
@@ -131,6 +149,15 @@ block sidebar
             ul(class="nav-list")
                 li
                     a(class="nav-link" href="?path=/rest/appliance/techpreview/services") Services
+        section(class="nav-group")
+            label(for="tabexample2") Appliance Update
+            ul(class="nav-list")
+                li
+                    a(class="nav-link" href="?path=/rest/appliance/update/pending?source_type=LAST_CHECK") Pending - LAST_CHECK
+                li
+                    a(class="nav-link" href="?path=/rest/appliance/update/policy") Policy
+                li
+                    a(class="nav-link" href="?path=/rest/appliance/update/policy") Staged
 
 mixin arrayTable(data)
     if Array.isArray(data) && data.length > 0

@@ -22,9 +22,9 @@ app.set('view engine', 'pug');
 // Login page (home page)
 app.get('/', (req, res) => {
   console.log('Rendering login');
-  var response = syncRequest('GET', 'http://10.132.99.217/peek');
+  var response = syncRequest('GET', 'http://vapi-testbeds.eng.vmware.com/peek');
   var body = JSON.parse(response.getBody('utf8'));
-  let host = '10.132.97.51';
+  let host = 'vspheresdk-vc.eng.vmware.com';
   try {
     host = body.layer1[0].vc[0].systemPNID;
     res.render('home', { redirect: req.query.redirect, title: process.env.TITLE, host: `https://${host}`, user: process.env.USERID, pwd: process.env.PASS, hosts: ["https://10.132.97.51"] });
@@ -44,4 +44,5 @@ app.get('/logout', apiController.getLogout);
 
 app.listen(3000, function () {
   console.log('vSphere REST example webapp listening on port 3000!')
-})
+});
+
